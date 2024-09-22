@@ -10,7 +10,6 @@ public class Beacon : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            Debug.Log("Beacon instance created.");
         }
         else
         {
