@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class HoleManager : MonoBehaviour
 {
-    public GameObject holePrefab;
-    public GameObject[] wallBorders; // 0- top, 1-bottom, 2-left, 3-right
-    public float holeDuration = 5f;
-    public float minSpawnTime = 3f;
-    public float maxSpawnTime = 8f;
-    public float borderWidth; // Width of the wall (same for all walls)
+    [SerializeField] GameObject holePrefab;
+    [SerializeField] GameObject[] wallBorders;
+    [SerializeField] float holeDuration = 5f;
+    [SerializeField] float minSpawnTime = 3f;
+    [SerializeField] float maxSpawnTime = 8f;
+    [SerializeField] float borderWidth;
 
     private GameObject activeHole;
     private Collider2D activeWallCollider;
@@ -34,16 +34,13 @@ public class HoleManager : MonoBehaviour
     private void SpawnHole()
     {
         Vector2 holePosition = GetRandomHolePosition();
-        Quaternion holeRotation = GetHoleRotation(holePosition); // Set correct rotation
+        Quaternion holeRotation = GetHoleRotation(holePosition);
         activeHole = Instantiate(holePrefab, holePosition, holeRotation);
-        activeHole.SetActive(true);
 
-        // Get the appropriate wall collider based on the position
         activeWallCollider = GetWallCollider(holePosition);
 
         if (activeWallCollider != null)
         {
-            // Temporarily ignore collision between the ball and the wall where the hole is
             Collider2D holeCollider = activeHole.GetComponent<Collider2D>();
             if (holeCollider != null)
             {
@@ -54,25 +51,24 @@ public class HoleManager : MonoBehaviour
 
     private Collider2D GetWallCollider(Vector2 holePosition)
     {
-        // Determine which wall collider to disable based on hole position
-        if (holePosition.y == wallBorders[0].transform.position.y) // Top wall
+        if (holePosition.y == wallBorders[0].transform.position.y)
         {
             return wallBorders[0].GetComponent<Collider2D>();
         }
-        else if (holePosition.y == wallBorders[1].transform.position.y) // Bottom wall
+        else if (holePosition.y == wallBorders[1].transform.position.y)
         {
             return wallBorders[1].GetComponent<Collider2D>();
         }
-        else if (holePosition.x == wallBorders[2].transform.position.x) // Left wall
+        else if (holePosition.x == wallBorders[2].transform.position.x)
         {
             return wallBorders[2].GetComponent<Collider2D>();
         }
-        else if (holePosition.x == wallBorders[3].transform.position.x) // Right wall
+        else if (holePosition.x == wallBorders[3].transform.position.x)
         {
             return wallBorders[3].GetComponent<Collider2D>();
         }
 
-        return null; // Default to no collider
+        return null;
     }
 
     private void CloseHole()
@@ -82,7 +78,6 @@ public class HoleManager : MonoBehaviour
             Collider2D holeCollider = activeHole.GetComponent<Collider2D>();
             if (holeCollider != null && activeWallCollider != null)
             {
-                // Re-enable the collision between the ball and the wall
                 Physics2D.IgnoreCollision(holeCollider, activeWallCollider, false);
             }
 
@@ -93,30 +88,30 @@ public class HoleManager : MonoBehaviour
     private Vector2 GetRandomHolePosition()
     {
         float randomX = 0f, randomY = 0f;
-        float halfBorderWidth = borderWidth / 2f; // Half the width of the border (used for offsets)
+        float halfBorderWidth = borderWidth / 2f;
 
-        switch (Random.Range(0, 4))
+        switch (Random.Range(0, wallBorders.Length))
         {
-            case 0: // Top wall
+            case 0:
                 randomX = Random.Range(wallBorders[2].transform.position.x + halfBorderWidth,
                                        wallBorders[3].transform.position.x - halfBorderWidth);
-                randomY = wallBorders[0].transform.position.y; // Fixed y at the top wall's position
+                randomY = wallBorders[0].transform.position.y;
                 break;
 
-            case 1: // Bottom wall
+            case 1:
                 randomX = Random.Range(wallBorders[2].transform.position.x + halfBorderWidth,
                                        wallBorders[3].transform.position.x - halfBorderWidth);
-                randomY = wallBorders[1].transform.position.y; // Fixed y at the bottom wall's position
+                randomY = wallBorders[1].transform.position.y;
                 break;
 
-            case 2: // Left wall
-                randomX = wallBorders[2].transform.position.x; // Fixed x at the left wall's position
+            case 2:
+                randomX = wallBorders[2].transform.position.x;
                 randomY = Random.Range(wallBorders[1].transform.position.y + halfBorderWidth,
                                        wallBorders[0].transform.position.y - halfBorderWidth);
                 break;
 
-            case 3: // Right wall
-                randomX = wallBorders[3].transform.position.x; // Fixed x at the right wall's position
+            case 3:
+                randomX = wallBorders[3].transform.position.x;
                 randomY = Random.Range(wallBorders[1].transform.position.y + halfBorderWidth,
                                        wallBorders[0].transform.position.y - halfBorderWidth);
                 break;
@@ -127,16 +122,15 @@ public class HoleManager : MonoBehaviour
 
     private Quaternion GetHoleRotation(Vector2 holePosition)
     {
-        if (holePosition == wallBorders[0].transform.position || holePosition == wallBorders[1].transform.position)
+        if (holePosition.y == wallBorders[0].transform.position.y || holePosition.y == wallBorders[1].transform.position.y)
         {
-            // Horizontal rotation for Top and Bottom walls
-            return Quaternion.identity; // No rotation (horizontal)
+            return Quaternion.identity;
         }
-        else if (holePosition == wallBorders[2].transform.position || holePosition == wallBorders[3].transform.position)
+        else if (holePosition.x == wallBorders[2].transform.position.x || holePosition.x == wallBorders[3].transform.position.x)
         {
-            // Vertical rotation for Left and Right walls
-            return Quaternion.Euler(0, 0, 90); // 90-degree rotation for vertical alignment
+            return Quaternion.Euler(0, 0, 90);
         }
-        return Quaternion.identity; // Default no rotation
+
+        return Quaternion.identity;
     }
 }
