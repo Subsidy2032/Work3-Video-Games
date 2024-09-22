@@ -4,7 +4,7 @@ using UnityEngine;
 public class HoleManager : MonoBehaviour
 {
     [SerializeField] GameObject holePrefab;
-    [SerializeField] GameObject[] wallBorders;
+    [SerializeField] GameObject[] wallBorders; // 0. Top 1. Bottom 2. Left 3. Right
     [SerializeField] float holeDuration = 5f;
     [SerializeField] float minSpawnTime = 3f;
     [SerializeField] float maxSpawnTime = 8f;
