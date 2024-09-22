@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3af9c757e1c9eb4f97447d3c55c6f23, type: 3}
   m_Name: Ball
   m_EditorClassIdentifier: 
-  ballSprite: {fileID: 0}
+  ballSprite: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
+  score: 3

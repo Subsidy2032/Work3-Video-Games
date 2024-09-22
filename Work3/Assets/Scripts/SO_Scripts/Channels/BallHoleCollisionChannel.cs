@@ -7,8 +7,8 @@ public class BallHoleCollisionChannel : ScriptableObject
 {
     public event Action<GameObject> CollisionDetected;
 
-    public void InvokeCollisionDetected(GameObject hole)
+    public void InvokeCollisionDetected(GameObject ball)
     {
-        CollisionDetected?.Invoke(hole);
+        CollisionDetected?.Invoke(ball);
     }
 }

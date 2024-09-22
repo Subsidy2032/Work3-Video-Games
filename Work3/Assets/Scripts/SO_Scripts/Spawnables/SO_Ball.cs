@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Ball", menuName = "Spawnables/Ball", order = 1)]
 public class SO_Ball : ScriptableObject
 {
-    [SerializeField] Sprite ballSprite;
-
+    [SerializeField] public Sprite ballSprite;
+    [SerializeField] public int score;
 
 }

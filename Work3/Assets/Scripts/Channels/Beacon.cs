@@ -13,7 +13,7 @@ public class Beacon : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);  // Ensure there is only one Beacon instance
+            Destroy(gameObject);
         }
     }
 

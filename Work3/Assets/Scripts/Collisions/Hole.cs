@@ -14,7 +14,7 @@ public class Hole : MonoBehaviour
     {
         if (collision.CompareTag("Ball") && collision.isTrigger)
         {
-            ballHoleCollisionChannel.InvokeCollisionDetected(this.gameObject);
+            ballHoleCollisionChannel.InvokeCollisionDetected(collision.gameObject);
         }
     }
 }
