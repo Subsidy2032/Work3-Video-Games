@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BallHoleCollisionHandler : MonoBehaviour
@@ -9,12 +6,15 @@ public class BallHoleCollisionHandler : MonoBehaviour
 
     void Start()
     {
-        ballHoleCollisionChannel = Beacon.GetInstance().ballHoleCollisionChannel;
-        ballHoleCollisionChannel.CollisionDetected += DestroyBall;
+        Beacon beacon = Beacon.GetInstance();
+        ballHoleCollisionChannel = beacon.ballHoleCollisionChannel;
     }
 
-    void DestroyBall(GameObject ball)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(ball);
+        if (collision.CompareTag("Ball") && collision.isTrigger)
+        {
+            ballHoleCollisionChannel.InvokeCollisionDetected(collision.gameObject);
+        }
     }
 }

@@ -11,6 +11,7 @@ public class Beacon : MonoBehaviour
         {
             instance = this;
         }
+
         else
         {
             Destroy(gameObject);

@@ -5,5 +5,4 @@ public class SO_Ball : ScriptableObject
 {
     [SerializeField] public Sprite ballSprite;
     [SerializeField] public int score;
-
 }

@@ -4,6 +4,4 @@ using UnityEngine;
 public class SO_Spike : ScriptableObject
 {
 
-
-
 }

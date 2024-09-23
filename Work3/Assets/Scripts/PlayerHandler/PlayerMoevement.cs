@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float speed = 10f;
     public float jumpAmount = 10f;
     private bool isGrounded;
+    private Vector2 direction;
 
     void Start()
     {
@@ -19,13 +20,15 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-        Vector2 direction = new Vector2(horizontalInput, 0);
+        direction = new Vector2(horizontalInput, 0);
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             Jump();
+    }
 
+    private void FixedUpdate()
+    {
         rb.velocity = new Vector2(direction.x * speed, rb.velocity.y);
-
     }
 
     void Jump()

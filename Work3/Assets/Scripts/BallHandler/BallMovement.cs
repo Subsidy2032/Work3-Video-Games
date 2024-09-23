@@ -31,7 +31,5 @@ public class BallMovement : MonoBehaviour
     {
         isColliding = true;
         this.collision = collision;
-
     }
-
 }
